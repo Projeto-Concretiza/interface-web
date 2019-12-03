@@ -1,0 +1,14 @@
+.card {
+    margin:10px;
+    align-content: center;
+    justify-content: center;
+}
+
+.card img {
+    /* border-radius: 100px; */
+}
+
+.card .details-btn {
+    background-color: rgb(94, 94, 189);
+    color: white;
+}

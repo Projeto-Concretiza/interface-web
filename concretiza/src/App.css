@@ -20,3 +20,16 @@
 .App-link {
   color: #09d3ac;
 }
+#sidebar {
+  height: 100%;
+  background-color: white;
+}
+
+.content {
+  padding-top: 71px;
+  
+}
+
+.content-element {
+  padding-top: 40px;
+}

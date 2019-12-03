@@ -1,0 +1,10 @@
+
+.btn {
+    background: none;
+    color: black;
+    border: none;
+}
+
+.btn :hover {
+    border: none;
+}
