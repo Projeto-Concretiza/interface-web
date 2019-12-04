@@ -21,7 +21,12 @@
   color: #09d3ac;
 }
 #sidebar {
-  height: 100%;
+  position: fixed;
+     width: 250px;
+    height: 100%;
+    padding:20px; 
+    align-content: center;
+  /* height: 100%; */
   background-color: white;
 }
 
@@ -32,4 +37,8 @@
 
 .content-element {
   padding-top: 40px;
+}
+
+.card {
+  margin:10px;
 }

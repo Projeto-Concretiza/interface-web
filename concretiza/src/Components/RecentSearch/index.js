@@ -20,10 +20,17 @@ const RecentSearch = (props) => {
             </Col>
             </Row>
             <Container  id="recent-products">
-                <Row>
-                    {props.recentSearch ?  props.recentSearch.map((product) => (
-                        <ProductCard product={product}/>
-                    )) : null}
+                <Row id="recent-carroussel">
+                    { props.recentSearch.length > 0 
+                        ?  props.recentSearch.map((product) => (
+                        <ProductCard 
+                            product={product} 
+                            handleSelect={props.handleSelect}
+                            handleRemove={props.handleRemove}
+                            handleRemoveRecent={props.handleRemoveRecent}
+                            />
+                        )) 
+                        : null }
                 </Row>
             </Container>
         </Container>

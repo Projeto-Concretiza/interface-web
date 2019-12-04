@@ -1,10 +1,18 @@
 
-.btn {
+.nav {
+    justify-content: center;
+}
+
+.nav .btn {
     background: none;
     color: black;
     border: none;
 }
 
-.btn :hover {
+.nav .btn :hover {
     border: none;
+}
+
+.nav .btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
 }
