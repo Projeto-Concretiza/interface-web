@@ -6,7 +6,7 @@ import ProductCard from '../ProductCard';
 import './style.css';
 
 const RecentSearch = (props) => {
-    console.log(props);
+    console.log("RecentSearchComponent",props);
     const count = props.recentSearch ? props.recentSearch.length : 0;
     return(
         <Container>
@@ -28,6 +28,7 @@ const RecentSearch = (props) => {
                             handleSelect={props.handleSelect}
                             handleRemove={props.handleRemove}
                             handleRemoveRecent={props.handleRemoveRecent}
+                            handleOpenModal={props.handleOpenModal}
                             />
                         )) 
                         : null }

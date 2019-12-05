@@ -18,8 +18,9 @@ export default class Home extends Component {
                     recentSearch={this.props.recentSearch}
                     handleSelect={this.props.handleSelect}
                     handleRemoveRecent={this.props.handleRemoveRecent}
+                    handleOpenModal={this.props.handleOpenModal}
                  />
-                 <Categories/>
+                 <Categories localItems={this.props.props.localItems} />
             </Container>
             </div>
         )

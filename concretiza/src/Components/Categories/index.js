@@ -4,6 +4,19 @@ import Title from '../UI/Title';
 import CategoryCard from '../CategoryCard/index';
 
 const Categories = (props) => {
+    console.log("CategoriesComponent",props);
+    const allCategories = () => {
+        let categoriesList = [];
+        for(let i = 0;i < props.localItems.length;i++) {
+            console.log(props.localItems[i]);
+            if(!(props.localItems[i].category in categoriesList)) {
+                categoriesList.push(props.localItems[i].category);
+            }
+        }
+        return categoriesList;
+    }
+    console.log("AllCategories",allCategories());
+    
     return(
         <Container>
         <Row>{" "}</Row>

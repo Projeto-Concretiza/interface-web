@@ -10,7 +10,11 @@ const CartList = (props) => {
             <Row>
                 <Col>
                     {props.currentItems.map((product) => (
-                        <ProductCartCard product={product} />
+                        <ProductCartCard
+                         product={product}
+                         handleSelect={props.handleSelect}
+                         handleDeselect={props.handleDeselect}
+                        />
                     ))}
                 </Col>
            </Row>

@@ -1,30 +1,66 @@
 import React from 'react';
-import {Modal,Button} from 'react-bootstrap';
+import {Modal,Button,Container,Card, Col,Row, ModalBody} from 'react-bootstrap';
+import Title from '../UI/Title';
+import SubTitle from '../UI/SubTitle';
+import ProductCartCard from '../ProductCartCard';
 
-const ModalComponent = () => {
-    return(<></>);
-    // return (
-    //   <>
-    //     {/* <Button variant="primary" {/*onClick={handleShow}*/}>
-    //       Launch demo modal
-    //     </Button>
-  
-    // <Modal show={show} {/*onHide={handleClose}*/}>
-    //       <Modal.Header closeButton>
-    //         <Modal.Title>Modal heading</Modal.Title>
-    //       </Modal.Header>
-    //       <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-    //       <Modal.Footer>
-    // <Button variant="secondary" {/*onClick={handleClose}*/}>
-    //           Close
-    //         </Button>
-    //         <Button variant="primary" {/*onClick={handleClose}*/}>
-    //           Save Changes
-    //         </Button>
-    //       </Modal.Footer>
-    //     </Modal>
-    //   </> */}
-    // );
+const ModalComponent = (props) => {
+  console.log('modalComponent',props);
+  const { item, handleCloseModal, handleSelect } = props;
+    return(
+      <Modal show={item} onHide={handleCloseModal} size="lg">
+         
+          <Modal.Body><Col xs={{offset:'11'}}><Button variant="danger" onClick={handleCloseModal}>&#10006;</Button></Col></Modal.Body>
+          <Modal.Body>
+          <Container>
+          <Row>
+            <Col>
+              <Card>
+                <Container>
+                <Card.Title>
+                  <Row >
+                    <Col xs={{offset:'7'}}>
+                      <Button id={item.id} onClick={handleSelect} variant="none"><h5>&#43;</h5></Button>
+                  </Col>
+                  </Row>
+                </Card.Title>
+                <Row>
+                  <Col>
+                    <Card.Img src={item.image} />
+                  </Col>
+                </Row>
+                <Card.Body>
+                  <Card.Title><Title title={item.name}/></Card.Title>
+                  <h5>Preço</h5>
+                  <h5>${item.price}</h5>
+                </Card.Body>
+                <Card.Body>
+                  <h5>Descrição</h5>
+                  <h6>{item.description}</h6>
+                </Card.Body>
+                </Container>
+              </Card>
+            </Col>
+            <Col>
+              <Row>
+              <Title title={"Frequentemente comprados juntos"}/>
+              </Row>
+              <Row>
+                <Col>
+                  {props.relatedItems.map(relItem => (
+                    (relItem.id === item.id ? null :
+                    <ProductCartCard product={relItem} />)
+                  ))}
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+          </Container>
+          </Modal.Body>
+      </Modal>
+      
+    );
+    
   }
 
 export default ModalComponent;
