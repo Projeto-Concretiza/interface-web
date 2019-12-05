@@ -1,0 +1,25 @@
+.card {
+    width:12rem;
+}
+
+.card img {
+    width: 8rem;
+    height: 8rem;
+    margin:10px;
+    border-radius: 100%;
+}
+
+
+.card .details-btn {
+    background-color: rgb(94, 94, 189);
+    color: white;
+    margin-bottom: 10px;
+}
+/* .card .add-btn :hover {
+    background-color: green;
+}
+
+.card .rem-btn :hover {
+    background-color: tomato;
+    color: white;
+} */
