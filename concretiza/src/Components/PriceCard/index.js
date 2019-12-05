@@ -1,6 +1,7 @@
 import React from 'react';
 import {Card, Container, Col, Row, Button} from 'react-bootstrap';
 import Title from '../UI/Title';
+import './style.css';
 
 const PriceCard = (props) => {
     console.log("PriceCard",props);
@@ -8,7 +9,7 @@ const PriceCard = (props) => {
         <Container>
             <Row>
                 <Col>
-                    <h1>total</h1>
+                    <h1>Total</h1>
                 </Col>
             </Row>
             <Row>
@@ -18,7 +19,7 @@ const PriceCard = (props) => {
             </Row>
             <Row>
                 <Col><Button>Concluir</Button></Col>
-                <Col><Button variant="danger">Cancelar</Button></Col>
+                <Col><Button variant="danger" onClick={props.handleCurrentItemsReset}>Cancelar</Button></Col>
             </Row>
         </Container>
     )

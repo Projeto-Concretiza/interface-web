@@ -9,6 +9,7 @@ export default class Budget extends Component {
             <Container>
                 <Cart 
                     props={this.props}
+                    currentItems={this.props.props.currentItems}
                     handleSelect={this.props.handleSelect}
                     handleDeselect={this.props.handleDeselect}
                     currentPrice={this.props.props.currentPrice}

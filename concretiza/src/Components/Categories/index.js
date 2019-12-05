@@ -13,7 +13,7 @@ const Categories = (props) => {
                     <Col md={4} lg={4} xs={4}><Title title={"Categorias"}/></Col>
                     {/* <Button/> */}
                 </Row>
-                <Container>
+                <Container id="categories">
                     <Row>
 
                         
@@ -24,7 +24,7 @@ const Categories = (props) => {
                             {name:"Tubos para Esgoto",id:"TPESG"},
                             {name:"Conexões para água fria",id:"COPAGF"}
                         ]}
-                        color={"#63B8FF"}
+                        color={"#1A748E"}
                          />
                         <CategoryCard 
                             title={"Pisos"}
@@ -33,7 +33,7 @@ const Categories = (props) => {
                                 {name:"Mosaicos",id:"PMO"},
                                 {name:"Azuleijos",id:"PAZ"}
                             ]}
-                            color={"#5AE8B8"}
+                            color={"#55C4D7"}
                         />
                         <CategoryCard 
                             title={"Tintas e Químicos"}
@@ -42,16 +42,16 @@ const Categories = (props) => {
                                 {name:"Tintas Esmalte",id:"TESM"},
                                 {name:"Tintas Spray",id:"TSP"}
                             ]}
-                            color={"#8DFF71"}
+                            color={"#F0DF99"}
                         />
-                        <CategoryCard 
+                        <CategoryCard
                             title={"Material Elétrico"}
                             opts={[
                                 {name:"Interruptores",id:"IEL"},
                                 {name:"Capinhas",id:"CEL"},
                                 {name:"Conexões",id:"CONEL"}
                             ]}
-                            color={"#E8DF5A"}
+                            color={"#D38E31"}
                         />
                     
                     

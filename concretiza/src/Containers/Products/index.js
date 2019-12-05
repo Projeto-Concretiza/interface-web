@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Col, Row, Container} from 'react-bootstrap';
 import RecentSearch from '../../Components/RecentSearch';
 import Categories from '../../Components/Categories';
+import ModalComponent from '../../Components/Modal';
 
 export default class Home extends Component {
     // constructor(props){
@@ -9,8 +10,9 @@ export default class Home extends Component {
     // }
 
     render() {
-        console.log(this.props);
+        console.log("ProductsContainer",this.props);
         return (
+            <div>
             <Container>
                 <RecentSearch
                     recentSearch={this.props.recentSearch}
@@ -19,6 +21,7 @@ export default class Home extends Component {
                  />
                  <Categories/>
             </Container>
+            </div>
         )
     }
 } 

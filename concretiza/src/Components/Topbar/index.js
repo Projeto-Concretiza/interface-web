@@ -6,7 +6,7 @@ const Topbar = (props) => {
     return (
         <Navbar bg="white" fixed="top">
             <Col xs={2} md={2} lg={2}>
-                <Navbar.Brand ><img src={props.logo} width="45" height="45" className="d-inline-block-align-top" />
+                <Navbar.Brand ><img src={props.logo} width="40" height="45" className="d-inline-block-align-top" />
                 {" "}Concretiza</Navbar.Brand>
                 </Col>
             <Col xs={{span: 4,offset:4}} md={{span: 4,offset:5}} lg={{span: 5,offset:7}}>

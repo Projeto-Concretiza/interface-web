@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import logo from './assets/Concretiza.png';
 import Topbar from './Components/Topbar';
 import Sidebar from './Components/Sidebar';
 import './App.css';
@@ -13,7 +13,7 @@ import Budget from './Containers/Budget';
       super(props);
       this.state = {
           currentPage:'budget',
-          popUpItem:null,
+          currentModal:null,
           currentItems:[],  
           localItems:[],
           recentSearch:[],
@@ -28,6 +28,8 @@ import Budget from './Containers/Budget';
       this.handleLoadProducts = this.handleLoadProducts.bind(this);
       this.handleRemoveRecent = this.handleRemoveRecent.bind(this);
       this.handleCurrentItemsReset = this.handleCurrentItemsReset.bind(this);
+      this.handleOpenModal = this.handleOpenModal.bind(this);
+      this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
   loadRecentDemo = () => {
@@ -57,7 +59,11 @@ import Budget from './Containers/Budget';
         image:"https://telhanorte.vteximg.com.br/arquivos/ids/326502-960-960/Piso-ceramico-esmaltado-bold-Itauba-HD-61x61cm-marrom-Formigres.jpg?v=636651017423300000"
       },
       {
-        name:"Açúcar",brand:'brazilite',function:'encanamento', image:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Sucre_blanc_cassonade_complet_rapadura.jpg/400px-Sucre_blanc_cassonade_complet_rapadura.jpg"
+        id:'3',
+        name:"Açúcar",
+        brand:'brazilite',
+        function:'encanamento',
+        price:(20.5), image:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Sucre_blanc_cassonade_complet_rapadura.jpg/400px-Sucre_blanc_cassonade_complet_rapadura.jpg"
       }
     ]
     let actualList = this.state.recentSearch;
@@ -140,7 +146,18 @@ import Budget from './Containers/Budget';
   }
 
   handleCurrentItemsReset = () => {
-    this.setState({currentItems:[]})
+    this.setState({currentItems:[]});
+    this.setState({currentPrice:0});
+  }
+
+  handleOpenModal = (event) => {
+    const {id} = event.target;
+    const item = this.searchItemById(id,this.state.localItems);
+    this.setState({currentModal:item});
+  }
+
+  handleCloseModal = (event) => {
+    this.setState({currentModal:null});
   }
 
   render() {
@@ -183,6 +200,9 @@ import Budget from './Containers/Budget';
               <Sidebar className="home-element" pages={screen} handlePageChange={this.handlePageChange} />
             </Col>
             <Col xs={{offset:2}} md={{offset:2}} lg={{offset:2}}>
+
+              {this.state.currentModal ? <></> : null}
+              
               <div className="content-element">{screen[this.state.currentPage]}</div>
             </Col> 
           </Row>
