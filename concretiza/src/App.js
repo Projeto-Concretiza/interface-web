@@ -8,12 +8,14 @@ import Home from './Containers/Home';
 import Products from './Containers/Products';
 import Budget from './Containers/Budget';
 
+import ModalComponent from './Components/Modal';
+
   export default class App extends Component {
     constructor(props){
       super(props);
       this.state = {
-          currentPage:'budget',
-          currentModal:null,
+          currentPage:'products',
+          currentModal:false,
           currentItems:[],  
           localItems:[],
           recentSearch:[],
@@ -31,46 +33,99 @@ import Budget from './Containers/Budget';
       this.handleOpenModal = this.handleOpenModal.bind(this);
       this.handleCloseModal = this.handleCloseModal.bind(this);
   }
-
-  loadRecentDemo = () => {
+  loadLocalDemo = () => {
     let list = [
       {
        id:'0',
        brand:'brazilite',
-       function:'encanamento',
+       function:'Encanamento',
+       category:'Material Hidraulico',
        name:"Tubo PVC",
+       description:"Usado para transportar a água fria com qualidade e segurança nas obras residenciais",
        price:(10.0),
        image:"https://cdn.leroymerlin.com.br/products/tubo_soldavel_25_00_mm_barra_3_00m_pvc_marrom_agua_fria_tigre_85949885_0001_600x600.jpg",
       },
       {
         id:'1',
         brand:'brazilite',
-        function:'encanamento', 
+        function:'Interruptor',
+        category:'Material Elétrico',
         name:"Interrruptor",
+        description:"Utilizado",
         price:(12.0),
         image:"https://cdn.leroymerlin.com.br/products/conjunto_interruptor_simples_10a_branco_pial_plus_pial_legrand_85897896_0002_600x600.jpg"
       },
       {
         id:'2',
         brand:'brazilite',
-        function:'encanamento',
+        function:'Cerâmicos',
+        category:'Pisos',
         name:"Cerâmica",
+        description:"",
         price:(15.0),
         image:"https://telhanorte.vteximg.com.br/arquivos/ids/326502-960-960/Piso-ceramico-esmaltado-bold-Itauba-HD-61x61cm-marrom-Formigres.jpg?v=636651017423300000"
       },
       {
         id:'3',
         name:"Açúcar",
+        function:'Adoçar',
+        category:'Aleatorio',
         brand:'brazilite',
         function:'encanamento',
+        description:"",
         price:(20.5), image:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Sucre_blanc_cassonade_complet_rapadura.jpg/400px-Sucre_blanc_cassonade_complet_rapadura.jpg"
       }
     ]
-    let actualList = this.state.recentSearch;
-    actualList = actualList.concat(list);
-    this.setState({recentSearch: actualList});
-    this.setState({localItems: actualList});
-    console.log("local",this.state.localItems);
+      let actualList = this.state.recentSearch;
+      actualList = actualList.concat(list);
+      this.setState({localItems: actualList});
+      this.setState({recentSearch:actualList});
+  }
+  loadRecentDemo = () => {
+    // let list = [
+    //   {
+    //    id:'0',
+    //    brand:'brazilite',
+    //    function:'encanamento',
+    //    name:"Tubo PVC",
+    //    description:"Usado para transportar a água fria com qualidade e segurança nas obras residenciais",
+    //    price:(10.0),
+    //    image:"https://cdn.leroymerlin.com.br/products/tubo_soldavel_25_00_mm_barra_3_00m_pvc_marrom_agua_fria_tigre_85949885_0001_600x600.jpg",
+    //   },
+    //   {
+    //     id:'1',
+    //     brand:'brazilite',
+    //     function:'encanamento', 
+    //     name:"Interrruptor",
+    //     description:"Utilizado",
+    //     price:(12.0),
+    //     image:"https://cdn.leroymerlin.com.br/products/conjunto_interruptor_simples_10a_branco_pial_plus_pial_legrand_85897896_0002_600x600.jpg"
+    //   },
+    //   {
+    //     id:'2',
+    //     brand:'brazilite',
+    //     function:'encanamento',
+    //     name:"Cerâmica",
+    //     description:"",
+    //     price:(15.0),
+    //     image:"https://telhanorte.vteximg.com.br/arquivos/ids/326502-960-960/Piso-ceramico-esmaltado-bold-Itauba-HD-61x61cm-marrom-Formigres.jpg?v=636651017423300000"
+    //   },
+    //   {
+    //     id:'3',
+    //     name:"Açúcar",
+    //     brand:'brazilite',
+    //     function:'encanamento',
+    //     description:"",
+    //     price:(20.5), image:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Sucre_blanc_cassonade_complet_rapadura.jpg/400px-Sucre_blanc_cassonade_complet_rapadura.jpg"
+    //   }
+    // ]
+    // let actualList = this.state.recentSearch;
+    // actualList = actualList.concat(list);
+    // this.setState({recentSearch: actualList});
+    // this.setState({localItems: actualList});
+    // console.log("local",this.state.localItems);
+
+    // this.setState({recentSearch:this.state.localItems});
   }
 
   searchItemById = (id,list) => {
@@ -94,6 +149,7 @@ import Budget from './Containers/Budget';
   }
 
   componentDidMount() {
+    this.loadLocalDemo();
     this.loadRecentDemo();
   }
 
@@ -152,12 +208,15 @@ import Budget from './Containers/Budget';
 
   handleOpenModal = (event) => {
     const {id} = event.target;
-    const item = this.searchItemById(id,this.state.localItems);
+    console.log('openModal',id);
+    const itemId = this.getElementIndex(id,'localItems');
+    
+    const item = this.state.localItems[itemId];
     this.setState({currentModal:item});
   }
 
-  handleCloseModal = (event) => {
-    this.setState({currentModal:null});
+  handleCloseModal = () => {
+    this.setState({currentModal:false});
   }
 
   render() {
@@ -176,6 +235,7 @@ import Budget from './Containers/Budget';
           handleSearch={this.handleSearch}
           handleSelect={this.handleSelect}
           handleRemoveRecent={this.handleRemoveRecent}
+          handleOpenModal={this.handleOpenModal}
         />
       ),
       budget: (
@@ -201,7 +261,14 @@ import Budget from './Containers/Budget';
             </Col>
             <Col xs={{offset:2}} md={{offset:2}} lg={{offset:2}}>
 
-              {this.state.currentModal ? <></> : null}
+              {this.state.currentModal != false
+              ? <ModalComponent
+                 handleCloseModal={this.handleCloseModal}
+                 item={this.state.currentModal}
+                 handleSelect={this.handleSelect}
+                 relatedItems={this.state.recentSearch}
+                 /> 
+              : null}
               
               <div className="content-element">{screen[this.state.currentPage]}</div>
             </Col> 

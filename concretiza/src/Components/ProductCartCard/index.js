@@ -9,13 +9,13 @@ const CartList = (props) => {
             <Card style={{height:'5rem',width:'80%'}}>
                 <Container>
                     <Row>
-                        <Col xs={2}>
+                        <Col xs={1} lg={2}>
                             <img style={{height:'4rem',width:'4rem'}} src={props.product.image}/>
                         </Col>
-                        <Col xs={10}>
-                            <Col>
+                        <Col xs={4} lg={10}>
+                            <Row>
                                 
-                                <Container>
+                                <Col md={{offset:'4'}} lg={{offset:'3'}} xs={{offset:'1'}}>
                                     <Row>
                                         <h5>{props.product.name}</h5>
                                     </Row>
@@ -25,12 +25,11 @@ const CartList = (props) => {
                                     <Row>
                                         <h6>${props.product.price}</h6>
                                     </Row>
-                                </Container>
-    
-                            </Col>
-                            <Col>
-                        <Button>Add</Button>
-                        </Col>
+                                </Col>
+                                <Col  >
+                                    <Button id={props.product.id} variant="none" onClick={props.handleSelect}><h5>&#43;</h5></Button>
+                                </Col>
+                            </Row>
                         </Col>
                     </Row>
                 </Container>
