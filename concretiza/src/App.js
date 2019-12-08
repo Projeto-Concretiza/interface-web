@@ -7,6 +7,7 @@ import {Col, Row, Container} from 'react-bootstrap';
 import Home from './Containers/Home';
 import Products from './Containers/Products';
 import Budget from './Containers/Budget';
+import Search from './Containers/Search';
 
 import axios from 'axios';
 
@@ -22,6 +23,7 @@ import ModalComponent from './Components/Modal';
           currentModal:false,
           currentItems:[],  
           localItems:[],
+          currentSearchItems:[],
           recentSearch:[],
           currentUser:null,
           loading:false,
@@ -166,10 +168,15 @@ import ModalComponent from './Components/Modal';
   handleSearch = (event) => {
     const {value} = event.target;
     if(value.length > 4) {
-      const result = this.handleRequestProducts("</productspath>"+ value);
+      this.setState({currentPage:'search'});
+      const result = this.handleRequestProducts("/products/name"+ value);
       const {localItems} = this.state;
       localItems.concat(result);
       this.setState({localItems});
+      this.setState({currentSearch: result});
+    }
+    else{
+      this.setState({currentPage:'products'});
     }
   }
 
@@ -267,6 +274,14 @@ import ModalComponent from './Components/Modal';
           handleSelect={this.handleSelect}
           handleDeselect={this.handleDeselect}
           handleCurrentItemsReset={this.handleCurrentItemsReset}
+        />
+      ),
+      search: (
+        <Search
+        props={this.state}
+        handleSelect={this.handleSelect}
+        handleRemoveRecent={this.handleRemoveRecent}
+        handleOpenModal={this.handleOpenModal}
         />
       )
       
