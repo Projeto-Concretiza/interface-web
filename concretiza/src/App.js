@@ -8,6 +8,10 @@ import Home from './Containers/Home';
 import Products from './Containers/Products';
 import Budget from './Containers/Budget';
 
+import axios from 'axios';
+
+import api from './api/Request';
+
 import ModalComponent from './Components/Modal';
 
   export default class App extends Component {
@@ -32,6 +36,7 @@ import ModalComponent from './Components/Modal';
       this.handleCurrentItemsReset = this.handleCurrentItemsReset.bind(this);
       this.handleOpenModal = this.handleOpenModal.bind(this);
       this.handleCloseModal = this.handleCloseModal.bind(this);
+      this.handleRequestProducts = this.handleRequestProducts.bind(this);
   }
   loadLocalDemo = () => {
     let list = [
@@ -159,8 +164,13 @@ import ModalComponent from './Components/Modal';
   }
 
   handleSearch = (event) => {
-    
-    console.log(event.target.value);
+    const {value} = event.target;
+    if(value.length > 4) {
+      const result = this.handleRequestProducts("</productspath>"+ value);
+      const {localItems} = this.state;
+      localItems.concat(result);
+      this.setState({localItems});
+    }
   }
 
   handleSelect = (event) => {
@@ -169,7 +179,7 @@ import ModalComponent from './Components/Modal';
     let {currentItems, currentPrice} = this.state;
     const itemId = this.getElementIndex(id,'localItems');
     const item = this.state.localItems[itemId];
-    currentPrice += item.price != undefined ? item.price : 0; 
+    currentPrice += (item.price != undefined ? item.price : 0); 
     currentItems = currentItems.concat(item);
     this.setState({currentItems});
     this.setState({currentPrice});
@@ -195,6 +205,19 @@ import ModalComponent from './Components/Modal';
     recentSearch.splice(index,1);
     this.setState({recentSearch});
     
+  } 
+  //To make requestsss
+  handleRequestProducts = async (type) => {
+    try {
+      const response = await api.get(type);
+      const {data} = response;
+      console.log("handleReq |",response.data);
+      return data;
+    }
+    catch (error){
+      console.log("reqERROR |",error);
+      return null;
+    }
   }
 
   handleLoadProducts = () => {
