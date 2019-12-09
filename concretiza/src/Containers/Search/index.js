@@ -6,7 +6,7 @@ import ProductCard from '../../Components/ProductCard';
 
 export default class Search extends Component {
     render() {
-        const {currentItems} = this.props.props;
+        const {currentSearchItems} = this.props.props;
 
         console.log("searchContainer",this.props);
         return(
@@ -15,14 +15,14 @@ export default class Search extends Component {
                 <Row>
                     
                     <Col>
-                    {currentItems!==[] ? currentItems.map((product)=> (
+                    {!this.props.props.loading && (currentSearchItems != null) ? currentSearchItems.map((product)=> (
                         <ProductCard 
                         product={product}
                         handleSelect={this.props.handleSelect}
                         handleRemoveRecent={this.props.handleRemoveRecent}
                         handleOpenModal={this.props.handleOpenModal}
                         />
-                    )) : <SubTitle title={"Nenhum resultado foi encontrado"} />}
+                    )) :  null}
                     </Col>
                 </Row>                
             </Container>
