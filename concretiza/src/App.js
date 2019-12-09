@@ -24,7 +24,7 @@ import { async } from 'q';
           currentModal:false,
           currentItems:[],  
           localItems:[],
-          currentSearchItems:[],
+          currentSearchItems:null,
           recentSearch:[],
           currentUser:null,
           loading:false,
@@ -32,6 +32,7 @@ import { async } from 'q';
       }
       this.handleInitLoading = this.handleInitLoading.bind(this);
       this.handleEndLoading = this.handleEndLoading.bind(this);
+
       this.handlePageChange = this.handlePageChange.bind(this);
       this.handleSearch = this.handleSearch.bind(this);
       this.handleSelect = this.handleSelect.bind(this);
@@ -171,6 +172,14 @@ import { async } from 'q';
     this.loadRecentDemo();
   }
 
+  handleInitLoading = () => {
+    this.setState({loading:true});
+  }
+
+  handleEndLoading = () => {
+    this.setState({loading:false});
+  }
+
   handlePageChange = (event) => {
     const {value} = event.target;
     this.setState({currentPage: value});
@@ -234,17 +243,6 @@ import { async } from 'q';
   } 
   //To make requestsss
   handleRequestProducts = async (type) => {
-    // try {
-    //   const response = await api.get(type);
-    //   const {data} = response;
-    //   console.log("handleReq |",response.data);
-    //   return response.data;
-    // }
-    // catch (error){
-    //   console.log("reqERROR |",error);
-    //   return null;
-    // }
-  
     await api.get(type)
     .then(response => {
       console.log("handleRequest |",response.data);
@@ -253,12 +251,6 @@ import { async } from 'q';
     .catch(error => {
       console.log("handleRequest |", error);
     })
-      // const response = await api.get(type);
-      // const {data} = response;
-      // console.log("handleReq |",response.data);
-      // return response.data;
-    
-
   }
 
   handleLoadProducts = () => {

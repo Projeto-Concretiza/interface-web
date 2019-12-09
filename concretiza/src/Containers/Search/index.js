@@ -1,6 +1,7 @@
 import React , { Component } from 'react';
 import { Container, Col, Row } from 'react-bootstrap';
 import Title from '../../Components/UI/Title';
+import SubTitle from '../../Components/UI/SubTitle';
 import ProductCard from '../../Components/ProductCard';
 import SubTitle from '../../Components/UI/SubTitle';
 
@@ -9,13 +10,17 @@ export default class Search extends Component {
     //     this.load
     // }
     render() {
+        const {currentSearchItems} = this.props.props;
+
         console.log("searchContainer",this.props);
         const {currentSearch,loading} = this.props.state;
         return(
             <Container>
-                <Row><Title title={"Pesquisa"}/></Row>
+                <Row><Col xs={4}><Title title={"Pesquisa"}/></Col></Row>
                 <Row>
+                    
                     <Col>
+
                     {currentSearch && loading  ? currentSearch.map(product => (
                         <ProductCard 
                         product={product}
