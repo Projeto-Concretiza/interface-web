@@ -167,16 +167,17 @@ import ModalComponent from './Components/Modal';
 
   handleSearch = (event) => {
     const {value} = event.target;
-    if(value.length > 4) {
+    if(value.length >= 4) {
       this.setState({currentPage:'search'});
       const result = this.handleRequestProducts("/products/name"+ value);
       const {localItems} = this.state;
       localItems.concat(result);
       this.setState({localItems});
-      this.setState({currentSearch: result});
+      this.setState({currentSearchItems: result});
     }
     else{
       this.setState({currentPage:'products'});
+      this.setState({currentSearchItems: []});
     }
   }
 
