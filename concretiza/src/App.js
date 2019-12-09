@@ -14,6 +14,7 @@ import axios from 'axios';
 import api from './api/Request';
 
 import ModalComponent from './Components/Modal';
+import { async } from 'q';
 
   export default class App extends Component {
     constructor(props){
@@ -138,6 +139,14 @@ import ModalComponent from './Components/Modal';
     // this.setState({recentSearch:this.state.localItems});
   }
 
+  handleInitLoading = () => {
+    this.setState({loading:true});
+  }
+
+  handleEndLoading = () => {
+    this.setState({loading:false});
+  }
+
   searchItemById = (id,list) => {
     const items = this.state[list];
     for(let item in items) {
@@ -179,16 +188,23 @@ import ModalComponent from './Components/Modal';
   handleSearch = (event) => {
     const {value} = event.target;
     if(value.length >= 4) {
+      this.handleInitLoading();
       this.setState({currentPage:'search'});
-      const result = this.handleRequestProducts("/products/name"+ value);
-      const {localItems} = this.state;
-      localItems.concat(result);
-      this.setState({localItems});
-      this.setState({currentSearchItems: result});
+       this.handleRequestProducts("/products/name/" + value)
+        .then(result => {
+          this.setState({currentSearchItems:result});
+          console.log("handleRequestProducts |",result);
+          this.handleEndLoading();
+        })
+        .catch(e => {
+          console.log(e);
+          this.handleEndLoading();
+          this.setState({currentSearchItems:null});
+    })
     }
-    else{
+    else {
       this.setState({currentPage:'products'});
-      this.setState({currentSearchItems: []});
+      this.handleEndLoading();
     }
   }
 
@@ -227,19 +243,14 @@ import ModalComponent from './Components/Modal';
   } 
   //To make requestsss
   handleRequestProducts = async (type) => {
-    this.handleInitLoading();
-    try {
-      const response = await api.get(type);
-      const {data} = response;
-      console.log("handleReq |",response.data);
-      this.handleEndLoading();
-      return data;
-    }
-    catch (error){
-      console.log("reqERROR |",error);
-      this.handleEndLoading();
-      return null;
-    }
+    await api.get(type)
+    .then(response => {
+      console.log("handleRequest |",response.data);
+      return response.data;
+    })
+    .catch(error => {
+      console.log("handleRequest |", error);
+    })
   }
 
   handleLoadProducts = () => {
@@ -293,7 +304,7 @@ import ModalComponent from './Components/Modal';
       ),
       search: (
         <Search
-        props={this.state}
+        state={this.state}
         handleSelect={this.handleSelect}
         handleRemoveRecent={this.handleRemoveRecent}
         handleOpenModal={this.handleOpenModal}
