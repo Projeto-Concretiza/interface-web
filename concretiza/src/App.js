@@ -23,12 +23,15 @@ import ModalComponent from './Components/Modal';
           currentModal:false,
           currentItems:[],  
           localItems:[],
-          currentSearchItems:[],
+          currentSearchItems:null,
           recentSearch:[],
           currentUser:null,
           loading:false,
           currentPrice: 0
       }
+      this.handleInitLoading = this.handleInitLoading.bind(this);
+      this.handleEndLoading = this.handleEndLoading.bind(this);
+
       this.handlePageChange = this.handlePageChange.bind(this);
       this.handleSearch = this.handleSearch.bind(this);
       this.handleSelect = this.handleSelect.bind(this);
@@ -160,6 +163,14 @@ import ModalComponent from './Components/Modal';
     this.loadRecentDemo();
   }
 
+  handleInitLoading = () => {
+    this.setState({loading:true});
+  }
+
+  handleEndLoading = () => {
+    this.setState({loading:false});
+  }
+
   handlePageChange = (event) => {
     const {value} = event.target;
     this.setState({currentPage: value});
@@ -167,16 +178,17 @@ import ModalComponent from './Components/Modal';
 
   handleSearch = (event) => {
     const {value} = event.target;
-    if(value.length > 4) {
+    if(value.length >= 4) {
       this.setState({currentPage:'search'});
       const result = this.handleRequestProducts("/products/name"+ value);
       const {localItems} = this.state;
       localItems.concat(result);
       this.setState({localItems});
-      this.setState({currentSearch: result});
+      this.setState({currentSearchItems: result});
     }
     else{
       this.setState({currentPage:'products'});
+      this.setState({currentSearchItems: []});
     }
   }
 
@@ -215,14 +227,17 @@ import ModalComponent from './Components/Modal';
   } 
   //To make requestsss
   handleRequestProducts = async (type) => {
+    this.handleInitLoading();
     try {
       const response = await api.get(type);
       const {data} = response;
       console.log("handleReq |",response.data);
+      this.handleEndLoading();
       return data;
     }
     catch (error){
       console.log("reqERROR |",error);
+      this.handleEndLoading();
       return null;
     }
   }
