@@ -15,12 +15,15 @@ export default class Search extends Component {
         const {currentSearch,loading} = this.props.state;
         return(
             <Container>
-                <Row><Col xs={4}><Title title={"Pesquisa"}/></Col></Row>
                 <Row>
-                    
+                    <Col xs={4}>
+                        <Title title={"Pesquisa"}/>
+                    </Col>
+                </Row>
+                <Row>
                     <Col>
-
-                    {loading && currentSearch && currentSearchItems || currentSearch && currentSearchItems  ? currentSearchItems.map(product => (
+                    {(loading && currentSearch && currentSearchItems) || (currentSearch && currentSearchItems)  
+                        ? currentSearchItems.map(product => (
                         <ProductCard 
                         product={product}
                         handleSelect={this.props.handleSelect}

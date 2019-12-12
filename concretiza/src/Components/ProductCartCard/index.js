@@ -1,7 +1,5 @@
 import React from 'react';
 import {Container,Col,Card,Row,Button} from 'react-bootstrap';
-import Title from '../UI/Title';
-import SubTitle from '../UI/SubTitle';
 
 const CartList = (props) => {
     console.log("ProductCartCard",props);
@@ -20,7 +18,7 @@ const CartList = (props) => {
             <Container>
                 <Row>
                     <Col xs={1} lg={2}>
-                        <img style={{height:'4rem',width:'4rem'}} src={props.product.image}/>
+                        <img alt={product.name} style={{height:'4rem',width:'4rem'}} src={props.product.image}/>
                     </Col>
                     <Col xs={4} lg={10}>
                         <Row>
@@ -43,7 +41,7 @@ const CartList = (props) => {
                             </Row>
                             <Row>
                                 <Col>
-                                    <Button className="details-btn" id={product.id} onClick={handleOpenModal}>?</Button>
+                                    <Button variant="none" id={product.id} onClick={handleOpenModal}>?</Button>
                                 </Col>
                             </Row>
                         </Row>

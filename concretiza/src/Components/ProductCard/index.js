@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, CardImg, Row, Col, Button, Container} from 'react-bootstrap';
+import { Card, Row, Col, Button, Container } from 'react-bootstrap';
 import './style.css';
 
 const ProductCard = (props) => {
@@ -14,6 +14,7 @@ const ProductCard = (props) => {
         }
         handleSelect(event);
     }
+
     return (
         <Card>
             <Row>

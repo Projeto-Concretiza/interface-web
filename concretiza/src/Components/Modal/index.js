@@ -1,12 +1,35 @@
 import React from 'react';
-import {Modal,Button,Container,Card, Col,Row, ModalBody} from 'react-bootstrap';
+import { Modal, Button, Container, Card, Col, Row } from 'react-bootstrap';
 import Title from '../UI/Title';
-import SubTitle from '../UI/SubTitle';
 import ProductCartCard from '../ProductCartCard';
 
 const ModalComponent = (props) => {
   console.log('modalComponent',props);
-  const { item, handleCloseModal, handleSelect, handleOpenModal} = props;
+  const { item, handleCloseModal, handleSelect, handleOpenModal, searchItemById} = props;
+
+  //Fix temporario POG
+  const getRelatedItems = () => {
+    let relatedList = [];
+    for(let i = 0; i < item.relatedItems.length ; i++) {
+      let rel = searchItemById(item.relatedItems[i],"localItems");
+      console.log("rel",rel)
+      relatedList.push(rel);
+    }
+    return relatedList;
+  }
+
+  //Fix temporario POG
+  const addProduct = () => {
+    let event = {
+        target: {
+            id: item.id
+        }
+    }
+    handleSelect(event);
+}
+  const related = getRelatedItems();
+
+  console.log("relatedItems",getRelatedItems());
     return(
       <Modal show={item} onHide={handleCloseModal} size="lg">
          
@@ -17,13 +40,17 @@ const ModalComponent = (props) => {
               <Col>
                 <Card>
                   <Container>
-                    <Card.Title>
-                      <Row >
-                        <Col xs={{offset:'7'}}>
-                          <Button id={item.id} onClick={handleSelect} variant="none"><h5>&#43;</h5></Button>
-                        </Col>
-                      </Row>
-                    </Card.Title>
+                    <Row>
+                      <Col xs={{offset:3}}>
+                        <Card.Title>
+                          <Row >
+                            <Col xs={{offset:'7'}}>
+                              <Button id={item.id} onClick={addProduct} variant="none"><h5>&#43;</h5></Button>
+                            </Col>
+                          </Row>
+                        </Card.Title>
+                      </Col>
+                    </Row>
                     <Row>
                       <Col>
                         <Card.Img src={item.image} />
@@ -49,13 +76,13 @@ const ModalComponent = (props) => {
                 </Row>
                 <Row>
                   <Col>
-                    {props.relatedItems.map(relItem => (
-                      (relItem.id === item.id ? null :
+                    { getRelatedItems().map(relItem => (
+                      relItem ? 
                       <ProductCartCard
                        product={relItem}
                        handleSelect={handleSelect}
                        handleOpenModal={handleOpenModal}
-                      />)
+                      /> : null
                     ))}
                   </Col>
                 </Row>
@@ -70,4 +97,3 @@ const ModalComponent = (props) => {
   }
 
 export default ModalComponent;
-  

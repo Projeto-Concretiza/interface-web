@@ -1,6 +1,5 @@
 import React from 'react';
-import {Container,Col,Card,Row} from 'react-bootstrap';
-import Title from '../UI/Title';
+import { Container, Col, Row } from 'react-bootstrap';
 import ProductCartCard from '../ProductCartCard';
 
 const CartList = (props) => {

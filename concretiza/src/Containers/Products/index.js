@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import {Col, Row, Container} from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import RecentSearch from '../../Components/RecentSearch';
 import Categories from '../../Components/Categories';
-import ModalComponent from '../../Components/Modal';
 
 export default class Home extends Component {
     // constructor(props){
@@ -20,7 +19,11 @@ export default class Home extends Component {
                     handleRemoveRecent={this.props.handleRemoveRecent}
                     handleOpenModal={this.props.handleOpenModal}
                  />
-                 <Categories localItems={this.props.props.localItems} />
+                 <Categories
+                    localItems={this.props.props.localItems}
+                    searchItemById={this.props.searchItemById}
+                    handleOpenModal={this.props.handleOpenModal}
+                />
             </Container>
             </div>
         )
