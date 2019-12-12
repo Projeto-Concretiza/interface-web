@@ -9,12 +9,9 @@ import Products from './Containers/Products';
 import Budget from './Containers/Budget';
 import Search from './Containers/Search';
 
-import axios from 'axios';
-
 import api from './api/Request';
 
 import ModalComponent from './Components/Modal';
-import { async } from 'q';
 
   export default class App extends Component {
     constructor(props){
@@ -213,6 +210,7 @@ import { async } from 'q';
     console.log(id);
     let {currentItems, currentPrice} = this.state;
     const itemId = this.getElementIndex(id,'localItems');
+    console.log("itemId",itemId);
     const item = this.state.localItems[itemId];
     currentPrice += (item.price != undefined ? item.price : 0); 
     currentItems = currentItems.concat(item);
@@ -331,6 +329,7 @@ import { async } from 'q';
                  item={this.state.currentModal}
                  handleSelect={this.handleSelect}
                  relatedItems={this.state.recentSearch}
+                 handleOpenModal={this.handleOpenModal}
                  /> 
               : null}
               
