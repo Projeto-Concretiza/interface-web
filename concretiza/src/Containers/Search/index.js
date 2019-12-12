@@ -3,7 +3,6 @@ import { Container, Col, Row } from 'react-bootstrap';
 import Title from '../../Components/UI/Title';
 import SubTitle from '../../Components/UI/SubTitle';
 import ProductCard from '../../Components/ProductCard';
-import SubTitle from '../../Components/UI/SubTitle';
 
 export default class Search extends Component {
     // componentDidMount() {

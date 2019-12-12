@@ -4,24 +4,34 @@ import './style.css';
 
 const ProductCard = (props) => {
     console.log("PCard",props);
+    const { handleSelect, product, handleOpenModal, handleRemoveRecent } = props;
+    //temporary fix POG
+    const addProduct = () => {
+        let event = {
+            target: {
+                id: product.id
+            }
+        }
+        handleSelect(event);
+    }
     return (
         <Card>
             <Row>
                 <Col>
-                    <Card.Img src={props.product.image}/>
+                    <Card.Img src={product.image}/>
                 </Col>
             </Row>
                 <Card.Body>
-                <Card.Title>{props.product.name}</Card.Title>
+                <Card.Title>{product.name}</Card.Title>
                 <Row>
                     <Container>
                         <Row>
                             <Col>
                                 <Button 
-                                    id={props.product.id}
+                                    id={product.id}
                                     block
                                     className="details-btn"
-                                    onClick={props.handleOpenModal}>
+                                    onClick={handleOpenModal}>
                                         Ver detalhes
                                 </Button>
                             </Col>
@@ -29,8 +39,8 @@ const ProductCard = (props) => {
                         <Row>
                             <Col>
                                 <Button 
-                                    id={props.product.id}
-                                    onClick={props.handleSelect}
+                                    id={product.id}
+                                    onClick={addProduct}
                                     variant="outline-dark"
                                     className="add-btn">
                                         &#10004;
@@ -38,8 +48,8 @@ const ProductCard = (props) => {
                             </Col>
                             <Col>
                                 <Button 
-                                    id={props.product.id}
-                                    onClick={props.handleRemoveRecent}
+                                    id={product.id}
+                                    onClick={handleRemoveRecent}
                                     variant="outline-danger" 
                                     className="rem-btn">
                                         &#10006;
