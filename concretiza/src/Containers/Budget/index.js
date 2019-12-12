@@ -14,6 +14,7 @@ export default class Budget extends Component {
                     handleDeselect={this.props.handleDeselect}
                     currentPrice={this.props.props.currentPrice}
                     handleCurrentItemsReset={this.props.handleCurrentItemsReset}
+                    handleOpenModal={this.props.handleOpenModal}
                 />
             </Container>
         )
