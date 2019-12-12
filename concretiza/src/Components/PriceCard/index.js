@@ -1,6 +1,5 @@
 import React from 'react';
-import {Card, Container, Col, Row, Button} from 'react-bootstrap';
-import Title from '../UI/Title';
+import { Container, Col, Row, Button } from 'react-bootstrap';
 import './style.css';
 
 const PriceCard = (props) => {

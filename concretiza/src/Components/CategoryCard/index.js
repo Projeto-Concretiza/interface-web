@@ -1,14 +1,21 @@
 import React from 'react';
-import {Card,Container, Row, Col} from 'react-bootstrap';
+import { Card, Row, Col } from 'react-bootstrap';
 import './style.css';
 import SubTitle from '../UI/SubTitle';
 
 const CategoryCard = (props) => {
+
+    console.log("CategoryCard",props)
     function alerta() {
         alert('ola');
     }
 
     const {title, opts,color} = props;
+
+    const search = (event) => {
+        //Fix temporario POG S/ request
+        props.handleOpenModal(event);
+    }
     
     return(
         
@@ -21,8 +28,8 @@ const CategoryCard = (props) => {
             
                 <Col>
                     {opts ? opts.map((opt) => (
-                        <Row><a href="" id={opt.id} onClick={alerta}>{opt.name}</a></Row>
-                    )) : null}
+                        <Row><button href="" className="opt-button" id={opt.id} onClick={search}>{opt.name}</button></Row>
+                    )) : <></>}
                 </Col>
             
             </Card.Text>

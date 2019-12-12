@@ -8,3 +8,9 @@
 .card a {
     color:black;
 }
+
+.opt-button {
+    font-size: 15px;
+    background-color: white;
+    border: none;
+}

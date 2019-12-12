@@ -8,6 +8,7 @@ import Home from './Containers/Home';
 import Products from './Containers/Products';
 import Budget from './Containers/Budget';
 import Search from './Containers/Search';
+import About from './Containers/About';
 
 import api from './api/Request';
 
@@ -53,6 +54,7 @@ import ModalComponent from './Components/Modal';
        name:"Tubo PVC",
        description:"Usado para transportar a água fria com qualidade e segurança nas obras residenciais",
        price:(10.0),
+       relatedItems:['2','3'],
        image:"https://cdn.leroymerlin.com.br/products/tubo_soldavel_25_00_mm_barra_3_00m_pvc_marrom_agua_fria_tigre_85949885_0001_600x600.jpg",
       },
       {
@@ -63,6 +65,7 @@ import ModalComponent from './Components/Modal';
         name:"Interrruptor",
         description:"Utilizado",
         price:(12.0),
+        relatedItems:['0','3'],
         image:"https://cdn.leroymerlin.com.br/products/conjunto_interruptor_simples_10a_branco_pial_plus_pial_legrand_85897896_0002_600x600.jpg"
       },
       {
@@ -73,6 +76,7 @@ import ModalComponent from './Components/Modal';
         name:"Cerâmica",
         description:"",
         price:(15.0),
+        relatedItems:['1','3'],
         image:"https://telhanorte.vteximg.com.br/arquivos/ids/326502-960-960/Piso-ceramico-esmaltado-bold-Itauba-HD-61x61cm-marrom-Formigres.jpg?v=636651017423300000"
       },
       {
@@ -81,61 +85,21 @@ import ModalComponent from './Components/Modal';
         function:'Adoçar',
         category:'Aleatorio',
         brand:'brazilite',
-        function:'encanamento',
         description:"",
+        relatedItems:['2','0'],
         price:(20.5), image:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Sucre_blanc_cassonade_complet_rapadura.jpg/400px-Sucre_blanc_cassonade_complet_rapadura.jpg"
       }
     ]
       let actualList = this.state.recentSearch;
       actualList = actualList.concat(list);
       this.setState({localItems: actualList});
-      this.setState({recentSearch:actualList});
   }
   loadRecentDemo = () => {
-    // let list = [
-    //   {
-    //    id:'0',
-    //    brand:'brazilite',
-    //    function:'encanamento',
-    //    name:"Tubo PVC",
-    //    description:"Usado para transportar a água fria com qualidade e segurança nas obras residenciais",
-    //    price:(10.0),
-    //    image:"https://cdn.leroymerlin.com.br/products/tubo_soldavel_25_00_mm_barra_3_00m_pvc_marrom_agua_fria_tigre_85949885_0001_600x600.jpg",
-    //   },
-    //   {
-    //     id:'1',
-    //     brand:'brazilite',
-    //     function:'encanamento', 
-    //     name:"Interrruptor",
-    //     description:"Utilizado",
-    //     price:(12.0),
-    //     image:"https://cdn.leroymerlin.com.br/products/conjunto_interruptor_simples_10a_branco_pial_plus_pial_legrand_85897896_0002_600x600.jpg"
-    //   },
-    //   {
-    //     id:'2',
-    //     brand:'brazilite',
-    //     function:'encanamento',
-    //     name:"Cerâmica",
-    //     description:"",
-    //     price:(15.0),
-    //     image:"https://telhanorte.vteximg.com.br/arquivos/ids/326502-960-960/Piso-ceramico-esmaltado-bold-Itauba-HD-61x61cm-marrom-Formigres.jpg?v=636651017423300000"
-    //   },
-    //   {
-    //     id:'3',
-    //     name:"Açúcar",
-    //     brand:'brazilite',
-    //     function:'encanamento',
-    //     description:"",
-    //     price:(20.5), image:"https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Sucre_blanc_cassonade_complet_rapadura.jpg/400px-Sucre_blanc_cassonade_complet_rapadura.jpg"
-    //   }
-    // ]
-    // let actualList = this.state.recentSearch;
-    // actualList = actualList.concat(list);
-    // this.setState({recentSearch: actualList});
-    // this.setState({localItems: actualList});
-    // console.log("local",this.state.localItems);
-
-    // this.setState({recentSearch:this.state.localItems});
+    let list = [];
+    for(let i = 0; i < this.state.recentSearch; i++) {
+      list.push(this.state.localItems[i])
+    }
+    this.setState({recentSearch:list});
   }
 
   handleInitLoading = () => {
@@ -148,9 +112,9 @@ import ModalComponent from './Components/Modal';
 
   searchItemById = (id,list) => {
     const items = this.state[list];
-    for(let item in items) {
-      if(item.id === id){
-        return item;
+    for(let item = 0; item < items.length;item++) {
+      if(items[item].id === id){
+        return items[item];
       }
     }
     return null;
@@ -170,7 +134,7 @@ import ModalComponent from './Components/Modal';
     const actualList = (this.state[list]);
     let result = []
     for(let i = 0;i < actualList.length;i++) {
-      if(name === actualList[i].name) {
+      if(name.toUpperCase() === actualList[i].name.toUpperCase()) {
         result.push(actualList[i]);
       }
     }
@@ -244,10 +208,17 @@ import ModalComponent from './Components/Modal';
     const itemId = this.getElementIndex(id,'localItems');
     console.log("itemId",itemId);
     const item = this.state.localItems[itemId];
-    currentPrice += (item.price != undefined ? item.price : 0); 
+    currentPrice += (item.price !== undefined ? item.price : 0); 
     currentItems = currentItems.concat(item);
     this.setState({currentItems});
     this.setState({currentPrice});
+
+    if (!(this.searchItemById(item.id,"recentSearch"))){
+      let { recentSearch } = this.state;
+      recentSearch.push(item);
+      this.setState({recentSearch});
+    }
+
     console.log(currentItems);
   }
 
@@ -318,9 +289,11 @@ import ModalComponent from './Components/Modal';
         <Products
           props={this.state}
           recentSearch={this.state.recentSearch}
+          searchItemById={this.searchItemById}
           handleSearch={this.handleSearch}
           handleSelect={this.handleSelect}
           handleRemoveRecent={this.handleRemoveRecent}
+          handleOpenModal={this.handleOpenModal}
           handleOpenModal={this.handleOpenModal}
         />
       ),
@@ -340,6 +313,9 @@ import ModalComponent from './Components/Modal';
         handleRemoveRecent={this.handleRemoveRecent}
         handleOpenModal={this.handleOpenModal}
         />
+      ),
+      about: (
+        <About />
       )
       
     };
@@ -356,13 +332,14 @@ import ModalComponent from './Components/Modal';
             </Col>
             <Col xs={{offset:2}} md={{offset:2}} lg={{offset:2}}>
 
-              {this.state.currentModal != false
+              {this.state.currentModal !== false
               ? <ModalComponent
                  handleCloseModal={this.handleCloseModal}
                  item={this.state.currentModal}
                  handleSelect={this.handleSelect}
                  relatedItems={this.state.recentSearch}
                  handleOpenModal={this.handleOpenModal}
+                 searchItemById={this.searchItemById}
                  /> 
               : null}
               

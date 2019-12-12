@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Row, Col,Card, Button, ListGroup} from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import Title from '../UI/Title';
 import CategoryCard from '../CategoryCard/index';
 
@@ -42,20 +42,24 @@ const Categories = (props) => {
                         <CategoryCard 
                         title={"Material Hidraulico"}
                         opts={[
-                            {name:"Tubo PVC",id:"TPVC"},
+                            {name:"Tubo PVC",id:"0"},
                             {name:"Tubos para Esgoto",id:"TPESG"},
                             {name:"Conexões para água fria",id:"COPAGF"}
                         ]}
                         color={"#1A748E"}
+                        searchItemById={props.searchItemById}
+                        handleOpenModal={props.handleOpenModal}
                          />
                         <CategoryCard 
                             title={"Pisos"}
                             opts={[
-                                {name:"Cerâmicos",id:"PCE"},
+                                {name:"Cerâmicos",id:"2"},
                                 {name:"Mosaicos",id:"PMO"},
                                 {name:"Azuleijos",id:"PAZ"}
                             ]}
                             color={"#55C4D7"}
+                            searchItemById={props.searchItemById}
+                            handleOpenModal={props.handleOpenModal}
                         />
                         <CategoryCard 
                             title={"Tintas e Químicos"}
@@ -65,15 +69,19 @@ const Categories = (props) => {
                                 {name:"Tintas Spray",id:"TSP"}
                             ]}
                             color={"#F0DF99"}
+                            searchItemById={props.searchItemById}
+                            handleOpenModal={props.handleOpenModal}
                         />
                         <CategoryCard
                             title={"Material Elétrico"}
                             opts={[
-                                {name:"Interruptores",id:"IEL"},
+                                {name:"Interruptores",id:"1"},
                                 {name:"Capinhas",id:"CEL"},
                                 {name:"Conexões",id:"CONEL"}
                             ]}
                             color={"#D38E31"}
+                            searchItemById={props.searchItemById}
+                            handleOpenModal={props.handleOpenModal}
                         />
                     
                     
