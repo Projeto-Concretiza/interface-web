@@ -14,6 +14,7 @@ const CartList = (props) => {
                          product={product}
                          handleSelect={props.handleSelect}
                          handleDeselect={props.handleDeselect}
+                         handleOpenModal={props.handleOpenModal}
                         />
                     ))}
                 </Col>

@@ -14,6 +14,7 @@ const Cart = (props) => {
                         currentItems={props.currentItems}
                         handleSelect={props.handleSelect}
                         handleDeselect={props.handleDeselect}
+                        handleOpenModal={props.handleOpenModal}
                     />
                 </Col>
                 <Col  md={{span: 3,offset:6}} xs={{span: 3,offset:6}} id="price_card">

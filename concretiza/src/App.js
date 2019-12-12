@@ -22,6 +22,7 @@ import ModalComponent from './Components/Modal';
           currentItems:[],  
           localItems:[],
           currentSearchItems:null,
+          currentSearch:[],
           recentSearch:[],
           currentUser:null,
           loading:false,
@@ -40,6 +41,7 @@ import ModalComponent from './Components/Modal';
       this.handleOpenModal = this.handleOpenModal.bind(this);
       this.handleCloseModal = this.handleCloseModal.bind(this);
       this.handleRequestProducts = this.handleRequestProducts.bind(this);
+      this.searchItemByName = this.searchItemByName.bind(this);
   }
   loadLocalDemo = () => {
     let list = [
@@ -164,6 +166,21 @@ import ModalComponent from './Components/Modal';
     return -1;
   }
 
+  searchItemByName = (name,list) => {
+    const actualList = (this.state[list]);
+    let result = []
+    for(let i = 0;i < actualList.length;i++) {
+      if(name === actualList[i].name) {
+        result.push(actualList[i]);
+      }
+    }
+    console.log("searchResult",result);
+    if(result.length === 0) {
+      result = false;
+    }
+    return result;
+  }
+
   componentDidMount() {
     this.loadLocalDemo();
     this.loadRecentDemo();
@@ -184,9 +201,24 @@ import ModalComponent from './Components/Modal';
 
   handleSearch = (event) => {
     const {value} = event.target;
-    if(value.length >= 4) {
+
+    this.setState({currentSearch:value});
+
+    this.setState({currentPage:'search'});
+
+    let localResult = this.searchItemByName(value,"localItems");
+
+    if(localResult.length > 0) {
+        this.setState({currentSearchItems:localResult});
+        return localResult;
+    }
+
+
+    else if(value.length >= 4) {
       this.handleInitLoading();
-      this.setState({currentPage:'search'});
+      console.log("handleSearchValue",value);
+
+
        this.handleRequestProducts("/products/name/" + value)
         .then(result => {
           this.setState({currentSearchItems:result});
@@ -298,6 +330,7 @@ import ModalComponent from './Components/Modal';
           handleSelect={this.handleSelect}
           handleDeselect={this.handleDeselect}
           handleCurrentItemsReset={this.handleCurrentItemsReset}
+          handleOpenModal={this.handleOpenModal}
         />
       ),
       search: (

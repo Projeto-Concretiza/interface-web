@@ -15,7 +15,16 @@ const Categories = (props) => {
         }
         return categoriesList;
     }
-    console.log("AllCategories",allCategories());
+    const allNames = () => {
+        let nameList = [];
+        for(let i = 0; i < props.localItems.length; i++) {
+            if(!(props.localItems[i].name in nameList)) {
+                nameList.push(props.localItems[i].name);
+            }
+        }
+        return nameList;
+    }
+    console.log("AllCategories and names",{categories:allCategories(),names:allNames()});
     
     return(
         <Container>

@@ -9,7 +9,7 @@ export default class Search extends Component {
     //     this.load
     // }
     render() {
-        const {currentSearchItems} = this.props.props;
+        const {currentSearchItems} = this.props.state;
 
         console.log("searchContainer",this.props);
         const {currentSearch,loading} = this.props.state;
@@ -20,7 +20,7 @@ export default class Search extends Component {
                     
                     <Col>
 
-                    {currentSearch && loading  ? currentSearch.map(product => (
+                    {loading && currentSearch && currentSearchItems || currentSearch && currentSearchItems  ? currentSearchItems.map(product => (
                         <ProductCard 
                         product={product}
                         handleSelect={this.props.handleSelect}

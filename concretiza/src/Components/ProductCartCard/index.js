@@ -36,9 +36,16 @@ const CartList = (props) => {
                                     <h6>${props.product.price}</h6>
                                 </Row>
                             </Col>
-                            <Col  >
-                                <Button variant="none" onClick={addProduct}><h5>&#43;</h5></Button>
-                            </Col>
+                            <Row>
+                                <Col>
+                                    <Button variant="none" onClick={addProduct}><h5>&#43;</h5></Button>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    <Button className="details-btn" id={product.id} onClick={handleOpenModal}>?</Button>
+                                </Col>
+                            </Row>
                         </Row>
                     </Col>
                 </Row>
